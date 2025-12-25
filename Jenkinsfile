@@ -65,6 +65,7 @@ pipeline {
 
                     mkdir -p build/${PACKAGE_NAME}-${PACKAGE_VERSION}
                     cp count_files.sh build/${PACKAGE_NAME}-${PACKAGE_VERSION}/
+                    cp count_files.conf build/${PACKAGE_NAME}-${PACKAGE_VERSION}/
                     cp -r packaging/deb/debian build/${PACKAGE_NAME}-${PACKAGE_VERSION}/
 
                     # фикс CRLF в debian файлах
