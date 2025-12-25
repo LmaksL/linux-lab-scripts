@@ -92,10 +92,11 @@ pipeline {
             }
             steps {
                 sh '''
-                    rpm -ivh ${PACKAGE_NAME}-*.rpm
-                    count_files
-                    rpm -e ${PACKAGE_NAME}
+                   rpm -ivh artifacts/${PACKAGE_NAME}-*.rpm
+                   count_files
+   	           rpm -e ${PACKAGE_NAME}
                 '''
+
             }
         }
 
@@ -108,9 +109,9 @@ pipeline {
             }
             steps {
                 sh '''
-                    dpkg -i ${PACKAGE_NAME}_*.deb || apt-get install -f -y
-                    count_files
-                    apt-get remove -y ${PACKAGE_NAME}
+                   dpkg -i artifacts/${PACKAGE_NAME}_*.deb || apt-get install -f -y
+                   count_files
+                   apt-get remove -y ${PACKAGE_NAME}
                 '''
             }
         }
