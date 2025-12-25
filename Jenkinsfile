@@ -17,7 +17,7 @@ pipeline {
         stage('Test Script') {
             steps {
                 // фикс CRLF (Windows) -> LF, чтобы не было /bin/bash^M
-                sh "sed -i 's/\\r$//' count_files.sh || true"
+                sh 'sed -i "s/\\r$//" count_files.sh || true'
                 sh 'chmod +x count_files.sh'
                 sh 'bash -n count_files.sh'
                 sh './count_files.sh'
