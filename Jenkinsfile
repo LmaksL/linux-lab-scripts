@@ -119,8 +119,7 @@ pipeline {
                 '''
             }
         }
-    }
-    stage('Collect Artifacts') {
+stage('Collect Artifacts') {
     steps {
         sh 'mkdir -p artifacts'
         unstash 'rpm'
@@ -129,6 +128,8 @@ pipeline {
     }
 }
 
+    }
+    
     post {
         success {
             archiveArtifacts artifacts: 'artifacts/*.rpm, artifacts/*.deb'
