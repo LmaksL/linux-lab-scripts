@@ -128,16 +128,20 @@ stage('Collect Artifacts') {
     }
     
    post {
-  success {
-    archiveArtifacts artifacts: 'artifacts/*.rpm, artifacts/*.deb', allowEmptyArchive: false
-    echo 'Artifacts archived.'
+  always {
+    archiveArtifacts artifacts: 'artifacts/*.rpm, artifacts/*.deb', allowEmptyArchive: true
+    echo 'Artifacts archived (if any).'
+    deleteDir()
   }
+
+  success {
+    echo 'Build completed successfully!'
+  }
+
   failure {
     echo 'Build failed!'
   }
-  always {
-    deleteDir()
-  }
 }
+
 
 }
