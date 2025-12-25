@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+  configure)
+    echo "count-files installed."
+    echo "Config: /etc/count_files.conf"
+    echo "Run:    count_files"
+    ;;
+esac
+
+exit 0
