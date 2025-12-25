@@ -48,10 +48,8 @@ pipeline {
 
                     mkdir -p ${WORKSPACE}/artifacts
                     cp -v ~/rpmbuild/RPMS/noarch/*.rpm ${WORKSPACE}/artifacts/
-                    stash name: 'rpm', includes: 'artifacts/*.rpm', allowEmpty: true
-
-
                 '''
+                   stash name: 'rpm', includes: 'artifacts/*.rpm', allowEmpty: true
             }
         }
 
@@ -80,10 +78,9 @@ pipeline {
 
                     mkdir -p ${WORKSPACE}/artifacts
                     cp -v ../*.deb ${WORKSPACE}/artifacts/
-                    stash name: 'deb', includes: 'artifacts/*.deb', allowEmpty: true
-
-
+                    
                 '''
+                 stash name: 'deb', includes: 'artifacts/*.deb', allowEmpty: true
             }
         }
 
