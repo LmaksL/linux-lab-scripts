@@ -48,6 +48,8 @@ pipeline {
 
                     mkdir -p ${WORKSPACE}/artifacts
                     cp -v ~/rpmbuild/RPMS/noarch/*.rpm ${WORKSPACE}/artifacts/
+                    stash name: 'rpm', includes: 'artifacts/*.rpm', allowEmpty: true
+
 
                 '''
             }
@@ -78,6 +80,8 @@ pipeline {
 
                     mkdir -p ${WORKSPACE}/artifacts
                     cp -v ../*.deb ${WORKSPACE}/artifacts/
+                    stash name: 'deb', includes: 'artifacts/*.deb', allowEmpty: true
+
 
                 '''
             }
@@ -116,6 +120,14 @@ pipeline {
             }
         }
     }
+    stage('Collect Artifacts') {
+    steps {
+        sh 'mkdir -p artifacts'
+        unstash 'rpm'
+        unstash 'deb'
+        sh 'ls -la artifacts || true'
+    }
+}
 
     post {
         success {
@@ -126,7 +138,9 @@ pipeline {
             echo 'Build failed!'
         }
         always {
-            deleteDir()
-        }
+        archiveArtifacts artifacts: 'artifacts/*.rpm, artifacts/*.deb', allowEmptyArchive: true
+        echo 'Artifacts archived (if any).'
+        deleteDir()
+    }
     }
 }
