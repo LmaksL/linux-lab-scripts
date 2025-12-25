@@ -46,7 +46,9 @@ pipeline {
                     cp ${WORKSPACE}/packaging/rpm/count-files.spec ~/rpmbuild/SPECS/
                     rpmbuild -ba ~/rpmbuild/SPECS/count-files.spec
 
-                    cp ~/rpmbuild/RPMS/noarch/*.rpm ${WORKSPACE}/
+                    mkdir -p ${WORKSPACE}/artifacts
+                    cp -v ~/rpmbuild/RPMS/noarch/*.rpm ${WORKSPACE}/artifacts/
+
                 '''
             }
         }
@@ -74,7 +76,9 @@ pipeline {
                     cd build/${PACKAGE_NAME}-${PACKAGE_VERSION}
                     dpkg-buildpackage -us -uc -b
 
-                    cp ../*.deb ${WORKSPACE}/
+                    mkdir -p ${WORKSPACE}/artifacts
+                    cp -v ../*.deb ${WORKSPACE}/artifacts/
+
                 '''
             }
         }
